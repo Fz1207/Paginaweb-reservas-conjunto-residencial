@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reservar Zonas Comunes</title>
+<!-- Incluimos la librería de QR Code -->
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .background-container {
+        background-image: url('https://img.freepik.com/foto-gratis/hombres-jovenes-que-asan-barbacoa-parrilla-campo-cabana_176420-1841.jpg?t=st=1711171976~exp=1711175576~hmac=f6af7cdadb7342fa67e1e98fe881e257dd89ec4736e0f330444421e8706d9217&w=740');
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container {
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.5); /* Añadir un fondo oscuro transparente para resaltar el contenido */
+        padding: 20px;
+        border-radius: 10px;
+    }
+    h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+        color: #42f5e8;
+    }
+    p {
+        font-size: 1.2em;
+        line-height: 1.6;
+        margin-bottom: 30px;
+        color: #fff;
+    }
+    select, input[type="date"] {
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #42f5e8;
+        border-radius: 5px;
+        background-color: #242424;
+        color: #fff;
+        outline: none;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+    }
+    input[type="submit"] {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #42f5e8;
+        color: #161616;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    input[type="submit"]:hover {
+        background-color: #25b1a9;
+    }
+    #calendar {
+        margin: 20px auto;
+        width: 80%;
+        max-width: 600px;
+        border-collapse: collapse;
+        color: #42f5e8;
+    }
+    #calendar th, #calendar td {
+        padding: 10px;
+        border: 1px solid #42f5e8;
+        text-align: center;
+    }
+    .warning {
+        background-color: #ff6961;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #42f5e8;
+        color: #161616;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    button:hover {
+        background-color: #25b1a9;
+    }
+    #qr-code {
+        margin: 20px auto;
+        display: block;
+    }
+</style>
+</head>
+<body>
+<div class="background-container">
+    <div class="container">
+        <h1>Reservar Zonas Comunes</h1>
+        <form>
+            <select id="zona" name="zona">
+                <option value="bbq">BBQ</option>
+                <option value="piscina">Piscina</option>
+                <option value="salon_social">Salón Social</option>
+                <option value="zona_picnic">Zona Picnic</option>
+                <option value="cancha1">Cancha 1</option>
+                <option value="cancha2">Cancha 2</option>
+                <option value="zona_bbq2">Zona BBQ 2</option>
+            </select>
+            <input type="date" id="fecha" name="fecha" required>
+            <input type="submit" value="Verificar Disponibilidad">
+        </form>
+        <div id="calendar"></div>
+        <div id="qr-container" style="display: none;">
+            <p>Costo: $50,000</p>
+            <div id="qr-code"></div>
+        </div>
+        <button onclick="window.location.href='pagina1.html'">Volver</button>
+    </div>
+</div>
+
+<script>
+    // Simulación de datos de reservas (en la realidad, esto vendría de una base de datos)
+    const reservas = {
+        "bbq": ["2024-03-29", "2024-04-05"],
+        "piscina": ["2024-03-30", "2024-04-06"],
+        // Agregar más reservas aquí según las zonas comunes disponibles
+        "salon_social": [],
+        "zona_picnic": [],
+        "cancha1": [],
+        "cancha2": [],
+        "zona_bbq2": []
+    };
+
+    // Función para verificar la disponibilidad y mostrar el calendario y QR Code si está disponible
+    function verificarDisponibilidad() {
+        const zonaSeleccionada = document.getElementById("zona").value;
+        const fechaSeleccionada = document.getElementById("fecha").value;
+        const calendar = document.getElementById("calendar");
+        const qrContainer = document.getElementById("qr-container");
+        const qrCode = document.getElementById("qr-code");
+
+        // Limpiar el calendario antes de mostrar nuevas reservas
+        calendar.innerHTML = "";
+
+        // Verificar si la zona y la fecha seleccionadas tienen reservas
+        if (reservas[zonaSeleccionada] && reservas[zonaSeleccionada].includes(fechaSeleccionada)) {
+            calendar.innerHTML = "<p class='warning'>¡Esta zona está reservada para esta fecha!</p>";
+            qrContainer.style.display = "none"; // Ocultar el contenedor de QR si no está disponible
+        } else {
+            calendar.innerHTML = "<p>Esta zona está disponible para esta fecha.</p>";
+            qrContainer.style.display = "block"; // Mostrar el contenedor de QR si está disponible
+            // Generar el código QR con el texto de pago
+            const qr = new QRCode(qrCode, {
+                text: "Realizar pago de $50,000",
+                width: 200,
+                height: 200
+            });
+        }
+    }
+
+    // Escuchar el evento de enviar el formulario para verificar la disponibilidad
+    document.querySelector("form").addEventListener("submit", function(event) {
+        event.preventDefault(); // Evitar que el formulario se envíe
+        verificarDisponibilidad(); // Verificar disponibilidad al enviar el formulario
+    });
+</script>
+</body>
+</html>

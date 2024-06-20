@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro para la Piscina</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-image: url('https://images.pexels.com/photos/250659/pexels-photo-250659.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Añadir transparencia al fondo */
+    }
+    .container {
+        text-align: center;
+        z-index: 1; /* Asegurar que el contenido esté sobre el fondo */
+    }
+    h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+    }
+    form {
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 20px;
+        border-radius: 10px;
+    }
+    input[type="text"],
+    input[type="email"],
+    select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 5px;
+    }
+    input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 15px 30px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 1.2em;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    .back-button {
+        background-color: #555;
+        border: none;
+        color: white;
+        padding: 15px 30px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 1.2em;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .back-button:hover {
+        background-color: #333;
+    }
+</style>
+</head>
+<body>
+<div class="overlay"></div>
+<div class="container">
+    <h1>Registro para la Piscina</h1>
+    <form action="procesar_registro.php" method="post">
+        <input type="text" name="nombre" placeholder="Nombre Completo" required>
+        <input type="email" name="email" placeholder="Correo Electrónico" required>
+        <input type="text" name="torre" placeholder="Torre" required>
+        <input type="text" name="apartamento" placeholder="Apartamento" required>
+        <input type="date" name="fecha" required>
+        <input type="time" name="hora" required>
+        <input type="submit" value="Registrarse">
+    </form>
+    <a href="pagina1.html" class="back-button">Volver a página anterior</a>
+</div>
+</body>
+</html>

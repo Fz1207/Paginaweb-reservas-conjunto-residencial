@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro para la Piscina</title>
+    <style>
+        /* Estilos CSS */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registro para la Piscina</h1>
+        <p>Seleccione el día y la hora en la que desea ir a la piscina:</p>
+        <form id="registration-form" action="submit_registration.php" method="post">
+            <label for="date">Fecha:</label>
+            <input type="date" id="date" name="date" required><br><br>
+            <label for="time">Hora:</label>
+            <input type="time" id="time" name="time" required><br><br>
+            <input type="submit" value="Registrar">
+        </form>
+        <div id="remaining-slots"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Función para obtener y mostrar los cupos restantes
+            function updateRemainingSlots() {
+                $.ajax({
+                    type: "GET",
+                    url: "get_remaining_slots.php",
+                    success: function(response) {
+                        $('#remaining-slots').html('<p>Cupos restantes para hoy: ' + response + '</p>');
+                    }
+                });
+            }
+
+            // Llamar a la función para mostrar los cupos restantes al cargar la página
+            updateRemainingSlots();
+
+            // Actualizar los cupos restantes después de enviar el formulario de registro
+            $('#registration-form').submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function() {
+                        // Actualizar los cupos restantes después de registrar
+                        updateRemainingSlots();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

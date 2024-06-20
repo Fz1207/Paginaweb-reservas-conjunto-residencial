@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zona de Pagos con Tarjeta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 400px;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            outline: none;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pago con Tarjeta</h1>
+        
+        <form id="formularioPagoTarjeta" action="procesar_pago_tarjeta.php" method="POST">
+            <input type="text" id="nombre" name="nombre" placeholder="Nombre en la tarjeta" required>
+            <br>
+            <input type="text" id="numero_tarjeta" name="numero_tarjeta" placeholder="Número de tarjeta" required>
+            <br>
+            <input type="text" id="fecha_expiracion" name="fecha_expiracion" placeholder="Fecha de expiración (MM/AA)" required>
+            <br>
+            <input type="text" id="codigo_seguridad" name="codigo_seguridad" placeholder="Código de seguridad" maxlength="3" required>
+            <br>
+            
+            <!-- Otros campos del formulario según sea necesario -->
+            
+            <button type="submit" name="pagar_tarjeta">Pagar con Tarjeta</button>
+        </form>
+    </div>
+</body>
+</html>
+

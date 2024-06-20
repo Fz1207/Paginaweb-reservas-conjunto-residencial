@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago de Administración</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 400px;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            outline: none;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #mensajeDeuda {
+            color: red;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pago de Administración</h1>
+        
+        <form id="formularioPago" action="procesar_pago.php" method="POST">
+            <label for="piso">Selecciona el piso:</label>
+            <select name="piso" id="piso">
+                <option value="1">Piso 1</option>
+                <option value="2">Piso 2</option>
+                <option value="3">Piso 3</option>
+                <!-- Agrega más opciones según tus necesidades -->
+            </select>
+            <br>
+            <label for="apartamento">Selecciona el apartamento:</label>
+            <select name="apartamento" id="apartamento">
+                <option value="101">Apartamento 101</option>
+                <option value="102">Apartamento 102</option>
+                <option value="103">Apartamento 103</option>
+                <!-- Agrega más opciones según tus necesidades -->
+            </select>
+            <br>
+            <p id="mensajeDeuda"></p>
+            <!-- Otros campos del formulario según sea necesario -->
+            
+            <button type="submit" name="pagar_administracion">Pagar Administración</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("formularioPago").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita que el formulario se envíe de manera tradicional
+            
+            // Aquí podrías agregar código para validar los campos del formulario si es necesario
+            
+            // Redirige a la zona de pagos con tarjeta
+            window.location.href = "zona_pagos_tarjeta.html";
+        });
+
+        document.getElementById("apartamento").addEventListener("change", function() {
+            var apartamentoSeleccionado = this.value;
+            var mensajeDeuda = document.getElementById("mensajeDeuda");
+
+            // Verificar si el apartamento seleccionado es el 102
+            if (apartamentoSeleccionado === "102") {
+                mensajeDeuda.textContent = "Este apartamento debe 2 meses de administración.";
+            } else {
+                mensajeDeuda.textContent = ""; // Limpiar el mensaje si no es el apartamento 102
+            }
+        });
+    </script>
+</body>
+</html>
